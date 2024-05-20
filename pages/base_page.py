@@ -4,7 +4,7 @@ import requests
 from termcolor import colored
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as Ec
 
 
 class WebPage(object):
@@ -186,7 +186,7 @@ class WebPage(object):
 
                 try:
                     bad_element = WebDriverWait(self._web_driver, 0.1).until(
-                        EC.presence_of_element_located((By.XPATH, wait_for_xpath_to_disappear))
+                        Ec.presence_of_element_located((By.XPATH, wait_for_xpath_to_disappear))
                     )
                 except:
                     pass  # Игнорировать ошибки тайм-аута
@@ -196,7 +196,7 @@ class WebPage(object):
             if page_loaded and wait_for_element:
                 try:
                     page_loaded = WebDriverWait(self._web_driver, 0.1).until(
-                        EC.element_to_be_clickable(wait_for_element._locator)
+                        Ec.element_to_be_clickable(wait_for_element._locator)
                     )
                 except:
                     pass  # Игнорировать ошибки тайм-аута
