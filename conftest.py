@@ -1,36 +1,20 @@
-import pytest
-import allure
+import time
 import uuid
+import allure
+import pytest
+import requests
 
-#
-# @pytest.fixture
-# def chrome_options(chrome_options):
-#     # chrome_options.binary_location = '/usr/bin/google-chrome-stable'
-#     # chrome_options.add_argument('--headless')
-#     chrome_options.add_argument('--no-sandbox')
-#     chrome_options.add_argument('--log-level=DEBUG')
-#
-#     return chrome_options
-#
-#
-# @pytest.hookimpl(hookwrapper=True, tryfirst=True)
-# def pytest_runtest_makereport(item, call):
-#     # This function helps to detect that some test failed
-#     # and pass this information to teardown:
-#
-#     outcome = yield
-#     rep = outcome.get_result()
-#     setattr(item, "rep_" + rep.when, rep)
-#     return rep
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import base64
 
 
 @pytest.fixture
-def web_browser(request, selenium):
+def web_browser(request):
+    browser = webdriver.Chrome()
+    browser.maximize_window()
 
-    browser = selenium
-    browser.set_window_size(1400, 1000)
-
-    # Return browser instance to test case:
+    # Вернуть экземпляр браузера в тестовый пример:
     yield browser
 
     # Do teardown (this code will be executed after each test):
@@ -45,7 +29,7 @@ def web_browser(request, selenium):
 
             # Attach screenshot to Allure report:
             allure.attach(browser.get_screenshot_as_png(),
-                          name=request.function.name,
+                          name=request.function.__name__,
                           attachment_type=allure.attachment_type.PNG)
 
             # For happy debugging:
@@ -57,27 +41,55 @@ def web_browser(request, selenium):
         except:
             pass # just ignore any errors here
 
+    browser.quit()
+
+
+@pytest.fixture
+def chrome_options(chrome_options):
+    chrome_options.options = Options()
+    chrome_options.options.add_argument("--headless")
+    chrome_options.options.add_argument("--disable-gpu")
+    chrome_options.options.add_argument('--no-sandbox')
+    chrome_options.options.add_argument('--disable-dev-shm-usage')
+
+    return chrome_options
+
+
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
+def pytest_runtest_makereport(item):
+    # Эта функция помогает определить, что какой-то тест не прошел
+    # и передать эту информацию в отчет:
+
+    outcome = yield
+    rep = outcome.get_result()
+    setattr(item, "rep_" + rep.when, rep)
+    return rep
+
+
+def pytest_addoption(parser):
+    parser.addoption("--browser")
+
 
 def get_test_case_docstring(item):
-    """ This function gets doc string from test case and format it
-        to show this docstring instead of the test case name in reports.
+    """ Эта функция получает строку документа из тестового примера и форматирует ее
+        отображая эту строку в документации вместо имени тестового примера в отчетах.
     """
 
     full_name = ''
 
-    if item._obj.doc:
-        # Remove extra whitespaces from the doc string:
-        name = str(item._obj.doc.split('.')[0]).strip()
+    if item._obj.__doc__:
+        # Удалить лишние пробелы из строки документа:
+        name = str(item._obj.__doc__.split('.')[0]).strip()
         full_name = ' '.join(name.split())
 
-        # Generate the list of parameters for parametrized test cases:
+        # Сгенерировать список параметров для параметризованных тестовых случаев:
         if hasattr(item, 'callspec'):
             params = item.callspec.params
 
             res_keys = sorted([k for k in params])
-            # Create List based on Dict:
+            # Создать список на основе Dict:
             res = ['{0}_"{1}"'.format(k, params[k]) for k in res_keys]
-            # Add dict with all parameters to the name of test case:
+            # Добавить dict со всеми параметрами к названию тестового примера:
             full_name += ' Parameters ' + str(', '.join(res))
             full_name = full_name.replace(':', '')
 
@@ -85,26 +97,26 @@ def get_test_case_docstring(item):
 
 
 def pytest_itemcollected(item):
-    """ This function modifies names of test cases "on the fly"
-        during the execution of test cases.
+    """ Эта функция изменяет имена тестовых случаев «на лету».
+        во время выполнения тест-кейсов.
     """
 
-    if item._obj.doc:
+    if item._obj.__doc__:
         item._nodeid = get_test_case_docstring(item)
 
 
 def pytest_collection_finish(session):
-    """ This function modified names of test cases "on the fly"
-        when we are using --collect-only parameter for pytest
-        (to get the full list of all existing test cases).
+    """ Эта функция изменяет имена тестовых случаев «на лету»
+        когда мы используем параметр --collect-only для pytest
+        (чтобы получить полный список всех существующих тестовых случаев).
     """
 
     if session.config.option.collectonly is True:
         for item in session.items:
-            # If test case has a doc string we need to modify it's name to
-            # it's doc string to show human-readable reports and to
-            # automatically import test cases to test management system.
-            if item._obj.doc:
+            # Если в тестовом примере есть строка документа, нам нужно изменить ее имя на
+            # эту строку документа для отображения удобочитаемых отчетов и для
+            # автоматически импортировать тестовые случаи в систему управления тестированием.
+            if item._obj.__doc__:
                 full_name = get_test_case_docstring(item)
                 print(full_name)
 
