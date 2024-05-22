@@ -2,6 +2,7 @@ import os
 
 from page.base_page import WebPage
 from page.elements import WebElement
+from page.elements import ManyWebElements
 
 
 class MainPage(WebPage):
@@ -17,7 +18,7 @@ class MainPage(WebPage):
     # search_run_button = WebElement(xpath='//button[@type="submit"]')
     # Header locators
     header_menu_merchandise = WebElement(xpath='(//*[@id="desktop-menu"]//a)[1]')
-    header_menu_hardware = WebElement(xpath='(//*[@id="desktop-menu"]//a)[2]')
+    header_menu_hardware = WebElement(xpath='((//*[@id="desktop-menu"]//ul)[1]//a)[2]')
     header_menu_contact = WebElement(xpath='(//*[@id="desktop-menu"]//a)[3]')
     header_menu_download = WebElement(xpath='(//*[@id="desktop-menu"]//a)[4]')
     header_menu_project = WebElement(xpath='(//*[@id="left-menu"]//button)[1]')
@@ -25,11 +26,9 @@ class MainPage(WebPage):
     header_menu_learn = WebElement(xpath='(//*[@id="left-menu"]//button)[3]')
     header_menu_supporters = WebElement(xpath='(//*[@id="left-menu"]//button)[4]')
 
-    header_locators = [
-        header_menu_merchandise, header_menu_hardware, header_menu_contact,
-        header_menu_download, header_menu_project, header_menu_explore,
-        header_menu_learn, header_menu_supporters
-    ]
+    head_link_btn_group = ManyWebElements(xpath='((//*[@id="desktop-menu"]//ul)[1]//a)')
+
+
 
     # Footer locators
     footer_menu_privacy_policy = WebElement(xpath='//*[@aria-label="Privacy Policy"]')
@@ -49,10 +48,4 @@ class MainPage(WebPage):
     footer_menu_mirrors = WebElement(xpath='//*[@aria-label="Mirrors"]')
     footer_menu_log_in = WebElement(xpath='//*[@aria-label="Log in"]')
 
-    footer_locators = [
-        footer_menu_privacy_policy, footer_menu_terms_of_use, footer_menu_imprint,
-        footer_menu_facebook, footer_menu_youtube, footer_menu_twitter, footer_menu_code_of_conduct,
-        footer_menu_source_code, footer_menu_sending_pr, footer_menu_development,
-        footer_menu_packages, footer_menu_security, footer_menu_general, footer_menu_testing,
-        footer_menu_mirrors, footer_menu_log_in
-    ]
+    foot_link_btn_group = ManyWebElements(xpath='(//*[@id="link-grid"]//li)')
