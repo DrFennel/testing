@@ -9,6 +9,7 @@ class MainPage(WebPage):
 
     def __init__(self, web_driver, url=''):
         if not url:
+            # url = os.getenv("MAIN_URL") or 'https://hoster.by/'
             url = os.getenv("MAIN_URL") or 'https://manjaro.org/'
 
         super().__init__(web_driver, url)
@@ -17,6 +18,7 @@ class MainPage(WebPage):
     search_field = WebElement(id='search-query')
 
     # Header locators
+    btn_logo = WebElement(xpath='(//*[@aria-label="Home"])[1]')
     header_menu_merchandise = WebElement(xpath='(//*[@id="desktop-menu"]//a)[1]')
     header_menu_hardware = WebElement(xpath='((//*[@id="desktop-menu"]//ul)[1]//a)[2]')
     header_menu_contact = WebElement(xpath='(//*[@id="desktop-menu"]//a)[3]')
@@ -38,9 +40,10 @@ class MainPage(WebPage):
     body_get_manjaro_btn = ManyWebElements(xpath='(//*[@id="download-btn"])')
     # Text
     body_main_title = WebElement(xpath='//main//h1')
-    body_group_text = WebElement(xpath='//main//p')
-    body_group_title_text = WebElement(xpath='//main//h2')
-    body_group_block_title_text = WebElement(xpath='//main//h3')
+    body_group_block_title_text = ManyWebElements(xpath='//main//h3')
+    body_group_title_text = ManyWebElements(xpath='//main//h2')
+    body_group_text = ManyWebElements(xpath='//main//p')
+
     # Right pointed text
     body_right_text = ManyWebElements(xpath='//main//li')
     # Scroll buttons
@@ -49,6 +52,8 @@ class MainPage(WebPage):
     body_scroll_branches_btn = WebElement(xpath='//a[@href="#branches"]')
     body_scroll_merch_btn = WebElement(xpath='//a[@href="#merch"]')
     body_scroll_blog_btn = WebElement(xpath='//a[@href="#blog"]')
+
+    body_group_scroll_btn = ManyWebElements(xpath='//*[@aria-label="scroll"]')
 
     # Footer locators
     footer_menu_privacy_policy = WebElement(xpath='//*[@aria-label="Privacy Policy"]')
@@ -66,6 +71,12 @@ class MainPage(WebPage):
     footer_menu_general = WebElement(xpath='//*[@aria-label="General"]')
     footer_menu_testing = WebElement(xpath='//*[@aria-label="Testing"]')
     footer_menu_mirrors = WebElement(xpath='//*[@aria-label="Mirrors"]')
+
+    # Footer links locators without "log in"
+    foot_link_btn_group = ManyWebElements(xpath='//*[@id="link-grid"]//li')
+
+    # Footer login link
     footer_menu_log_in = WebElement(xpath='//*[@aria-label="Log in"]')
 
-    foot_link_btn_group = ManyWebElements(xpath='(//*[@id="link-grid"]//li)')
+    # Footer title columns
+    foot_title_columns = ManyWebElements(xpath='//footer//h4')

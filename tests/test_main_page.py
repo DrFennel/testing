@@ -101,25 +101,54 @@ def test_footer(web_browser):
 
 
 @allure.story('Test main page')
-@allure.feature('Test footer')
+@allure.feature('Test navigation')
 def test_navigation(web_browser):
     """This test checking navigation button main page"""
 
     page = MainPage(web_browser)
 
     scroll_locators = [
-        page.body_scroll_desktops_btn,
-        page.body_scroll_software_btn,
-        page.body_scroll_branches_btn,
-        page.body_scroll_merch_btn,
-        page.body_scroll_blog_btn
+        (page.body_scroll_desktops_btn, 'https://manjaro.org/#desktops'),
+        (page.body_scroll_software_btn, 'https://manjaro.org/#software'),
+        (page.body_scroll_branches_btn, 'https://manjaro.org/#branches'),
+        (page.body_scroll_merch_btn, 'https://manjaro.org/#merch'),
+        (page.body_scroll_blog_btn, 'https://manjaro.org/#blog')
     ]
 
-    for element in scroll_locators:
+    for element, link in scroll_locators:
         with allure.step(f'Checking element "{element}" for visible'):
             check.is_true(element.is_visible())
         with allure.step(f'Checking element "{element}" for clickability'):
             check.is_true(element.is_clickable())
+        with allure.step(f'Checking element "{element}" for working'):
+            check.equal(element.get_attribute('href'), link)
 
-        element.click()
-        time.sleep(2)
+        # element.click()
+        # time.sleep(1)
+
+@allure.story('Test main page')
+@allure.feature('Test "GET MANJARO" button')
+def test_get_manjaro(web_browser):
+    """This test checking "Get Manjaro" button main page"""
+
+    page = MainPage(web_browser)
+
+    btn_get = page.body_get_manjaro_btn
+
+    for element in btn_get:
+        # with allure.step(f'Checking element "{element}" for visible'):
+        #     check.is_true(element.is_enabled())
+        # with allure.step(f'Checking element "{element}" for clickability'):
+        #     check.is_true(element.is_clickable())
+        with allure.step(f'Checking element "{element}" for working'):
+            check.equal(element.get_attribute('href'), 'https://manjaro.org/download/')
+
+
+# def test_test(web_browser):
+#
+#     page = MainPage(web_browser)
+#
+#     print(page.body_group_block_title_text.__getitem__(1).text)
+#
+#     check.equal(page.btn_logo.get_attribute('href'), 'https://manjaro.org/')
+
