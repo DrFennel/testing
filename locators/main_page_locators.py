@@ -14,8 +14,8 @@ class MainPage(WebPage):
         super().__init__(web_driver, url)
 
     # Main search field
-    # search = WebElement(id='header-search')
-    # search_run_button = WebElement(xpath='//button[@type="submit"]')
+    search_field = WebElement(id='search-query')
+
     # Header locators
     header_menu_merchandise = WebElement(xpath='(//*[@id="desktop-menu"]//a)[1]')
     header_menu_hardware = WebElement(xpath='((//*[@id="desktop-menu"]//ul)[1]//a)[2]')
@@ -25,10 +25,30 @@ class MainPage(WebPage):
     header_menu_explore = WebElement(xpath='(//*[@id="left-menu"]//button)[2]')
     header_menu_learn = WebElement(xpath='(//*[@id="left-menu"]//button)[3]')
     header_menu_supporters = WebElement(xpath='(//*[@id="left-menu"]//button)[4]')
-
+    header_donate = WebElement(xpath='//a[@id="donate-btn"]')
+    # Search
+    header_search_field = WebElement(xpath='(//*[@name="query"])[1]')
+    header_submit_btn = WebElement(xpath='(//*[@type="submit"])[1]')
+    # Links menu
     head_link_btn_group = ManyWebElements(xpath='((//*[@id="desktop-menu"]//ul)[1]//a)')
+    # Dropdown menu
+    head_dd_btn_group = ManyWebElements(xpath='(//*[@id="left-menu"]//button)')
 
-
+    # Body locators
+    body_get_manjaro_btn = ManyWebElements(xpath='(//*[@id="download-btn"])')
+    # Text
+    body_main_title = WebElement(xpath='//main//h1')
+    body_group_text = WebElement(xpath='//main//p')
+    body_group_title_text = WebElement(xpath='//main//h2')
+    body_group_block_title_text = WebElement(xpath='//main//h3')
+    # Right pointed text
+    body_right_text = ManyWebElements(xpath='//main//li')
+    # Scroll buttons
+    body_scroll_desktops_btn = WebElement(xpath='//a[@href="#desktops"]')
+    body_scroll_software_btn = WebElement(xpath='//a[@href="#software"]')
+    body_scroll_branches_btn = WebElement(xpath='//a[@href="#branches"]')
+    body_scroll_merch_btn = WebElement(xpath='//a[@href="#merch"]')
+    body_scroll_blog_btn = WebElement(xpath='//a[@href="#blog"]')
 
     # Footer locators
     footer_menu_privacy_policy = WebElement(xpath='//*[@aria-label="Privacy Policy"]')
