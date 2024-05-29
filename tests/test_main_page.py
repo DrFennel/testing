@@ -126,6 +126,7 @@ def test_navigation(web_browser):
         # element.click()
         # time.sleep(1)
 
+
 @allure.story('Test main page')
 @allure.feature('Test "GET MANJARO" button')
 def test_get_manjaro(web_browser):
@@ -148,7 +149,6 @@ def test_get_manjaro(web_browser):
 #
 #     page = MainPage(web_browser)
 #
-#     print(page.body_group_block_title_text.__getitem__(1).text)
+#     print(page.body_group_block_title_text.__getitem__(1).is_displayed())
 #
 #     check.equal(page.btn_logo.get_attribute('href'), 'https://manjaro.org/')
-
