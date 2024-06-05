@@ -1,9 +1,6 @@
-import time
-
-import pytest
 import allure
 import pytest_check as check
-from locators.main_page_locators import MainPage
+from project.locators.main_page_locators import MainPage
 from selenium.webdriver.common.keys import Keys
 
 
@@ -122,9 +119,6 @@ def test_navigation(web_browser):
             check.is_true(element.is_clickable())
         with allure.step(f'Checking element "{element}" for working'):
             check.equal(element.get_attribute('href'), link)
-
-        # element.click()
-        # time.sleep(1)
 
 
 @allure.story('Test main page')

@@ -1,8 +1,8 @@
 import os
 
-from page.base_page import WebPage
-from page.elements import WebElement
-from page.elements import ManyWebElements
+from project.page.base_page import WebPage
+from project.page.elements import WebElement
+from project.page.elements import ManyWebElements
 
 
 class MainPage(WebPage):
