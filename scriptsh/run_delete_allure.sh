@@ -1,4 +1,2 @@
 #!/bin/bash
-cd ../allure_results
-ls
-rm *
+cd ../allure_results && rm *
