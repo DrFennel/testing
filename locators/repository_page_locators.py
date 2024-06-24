@@ -15,8 +15,12 @@ class MainPage(WebPage):
 
     # Filters
     checkbox_http = WebElement(xpath='//*[@id="http-filter"]')
+    checkbox_http_label = WebElement(xpath='//*[@for="http-filter"]')
     checkbox_https = WebElement(xpath='//*[@id="https-filter"]')
+    checkbox_https_label = WebElement(xpath='//*[@for="https-filter"]')
     checkbox_ftp = WebElement(xpath='//*[@id="ftp-filter"]')
+    checkbox_ftp_label = WebElement(xpath='//*[@for="ftp-filter"]')
+
     drop_countries = WebElement(xpath='//*[@value="netherlands"]')
     drop_states = WebElement(xpath='//*[@value="part"]')
 
