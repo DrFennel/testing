@@ -1,15 +1,14 @@
 import os
 
-from project.page.base_page import WebPage
-from project.page.elements import WebElement
-from project.page.elements import ManyWebElements
+from page.base_page import WebPage
+from page.elements import WebElement
+from page.elements import ManyWebElements
 
 
 class MainPage(WebPage):
 
     def __init__(self, web_driver, url=''):
         if not url:
-            # url = os.getenv("MAIN_URL") or 'https://hoster.by/'
             url = os.getenv("MAIN_URL") or 'https://manjaro.org/'
 
         super().__init__(web_driver, url)
@@ -80,3 +79,4 @@ class MainPage(WebPage):
 
     # Footer title columns
     foot_title_columns = ManyWebElements(xpath='//footer//h4')
+

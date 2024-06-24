@@ -1,6 +1,8 @@
+import time
+
 import allure
 import pytest_check as check
-from project.locators.main_page_locators import MainPage
+from locators.main_page_locators import MainPage
 from selenium.webdriver.common.keys import Keys
 
 
@@ -131,12 +133,11 @@ def test_get_manjaro(web_browser):
     btn_get = page.body_get_manjaro_btn
 
     for element in btn_get:
-        # with allure.step(f'Checking element "{element}" for visible'):
-        #     check.is_true(element.is_enabled())
-        # with allure.step(f'Checking element "{element}" for clickability'):
-        #     check.is_true(element.is_clickable())
-        with allure.step(f'Checking element "{element}" for working'):
-            check.equal(element.get_attribute('href'), 'https://manjaro.org/download/')
+        with allure.step(f'Checking element "{element}" for work'):
+            element.send_keys(Keys.RETURN)
+            check.equal(web_browser.current_url, 'https://manjaro.org/download/')
+            time.sleep(2)
+            web_browser.back()
 
 
 # def test_test(web_browser):
