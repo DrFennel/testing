@@ -20,12 +20,6 @@ def test_checkbox(web_browser):
         (page.checkbox_ftp, page.checkbox_ftp_label, 'FTP')
     ]
 
-    labels = [
-        page.checkbox_http_label,
-        page.checkbox_https_label,
-        page.checkbox_ftp_label
-    ]
-
     page.scroll_up()
 
     for checkbox, checkbox_label, checkbox_text in checkboxes:

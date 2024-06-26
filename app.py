@@ -13,6 +13,7 @@ def welcome():
 
     return render_template('index.html')
 
+
 @app.route("/error")
 def error():
     """Эта функция запуская и отвечает за процесс возврата результата test_error.html."""
@@ -43,6 +44,7 @@ def run_ui():
                           universal_newlines=True) as result:
         out = result.communicate()
     return render_template('index.html', text=out, json=out)
+
 
 @app.route("/run_delete")
 def run_delete():

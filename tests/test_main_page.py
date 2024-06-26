@@ -79,7 +79,6 @@ def test_find_field(web_browser):
                 count += 1
 
 
-
 @allure.story('Test main page')
 @allure.feature('Test footer')
 def test_footer(web_browser):
@@ -158,12 +157,3 @@ def test_get_manjaro(web_browser):
             check.equal(web_browser.current_url, 'https://manjaro.org/download/')
             time.sleep(2)
             web_browser.back()
-
-
-# def test_test(web_browser):
-#
-#     page = MainPage(web_browser)
-#
-#     print(page.body_group_block_title_text.__getitem__(1).is_displayed())
-#
-#     check.equal(page.btn_logo.get_attribute('href'), 'https://manjaro.org/')

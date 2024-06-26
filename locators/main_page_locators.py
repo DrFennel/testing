@@ -80,4 +80,3 @@ class MainPage(WebPage):
 
     # Footer title columns
     foot_title_columns = ManyWebElements(xpath='//footer//h4')
-
