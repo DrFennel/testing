@@ -9,7 +9,7 @@ class MainPage(WebPage):
 
     def __init__(self, web_driver, url=''):
         if not url:
-            url = os.getenv("MAIN_URL") or 'https://manjaro.org/'
+            url = os.getenv("MAIN_URL") or 'https://repo.manjaro.org/'
 
         super().__init__(web_driver, url)
 
@@ -21,8 +21,8 @@ class MainPage(WebPage):
     checkbox_ftp = WebElement(xpath='//*[@id="ftp-filter"]')
     checkbox_ftp_label = WebElement(xpath='//*[@for="ftp-filter"]')
 
-    drop_countries = WebElement(xpath='//*[@value="netherlands"]')
-    drop_states = WebElement(xpath='//*[@value="part"]')
+    drop_countries = WebElement(xpath='//*[@id="country-filter"]')
+    drop_states = WebElement(xpath='//*[@id="state-filter"]')
 
     # Rows
     column_country = ManyWebElements(xpath='//*[@aria-live="polite"]/*[*]/*[2]')

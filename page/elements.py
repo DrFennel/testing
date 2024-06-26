@@ -75,6 +75,16 @@ class WebElement(object):
 
         return False
 
+    def is_selected(self):
+        """ Check is the element selected or not. """
+
+        element = self.find(timeout=0.1)
+
+        if element:
+            return element.is_selected()
+
+        return False
+
     def wait_until_not_visible(self, timeout=10):
 
         element = None
