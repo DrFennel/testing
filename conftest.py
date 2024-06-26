@@ -1,12 +1,9 @@
-import time
 import uuid
 import allure
 import pytest
-import requests
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import base64
 
 
 @pytest.fixture
