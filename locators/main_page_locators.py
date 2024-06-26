@@ -15,6 +15,9 @@ class MainPage(WebPage):
 
     # Main search field
     search_field = WebElement(id='search-query')
+    search_btn = WebElement(xpath='(//*[@type="submit"])[1]')
+    search_obj_result = WebElement(xpath='//h1//span')
+    search_result = ManyWebElements(xpath='(//*[@aria-labelledby="tabs-documentation"]//h2)')
 
     # Header locators
     btn_logo = WebElement(xpath='(//*[@aria-label="Home"])[1]')
@@ -27,9 +30,7 @@ class MainPage(WebPage):
     header_menu_learn = WebElement(xpath='(//*[@id="left-menu"]//button)[3]')
     header_menu_supporters = WebElement(xpath='(//*[@id="left-menu"]//button)[4]')
     header_donate = WebElement(xpath='//a[@id="donate-btn"]')
-    # Search
-    header_search_field = WebElement(xpath='(//*[@name="query"])[1]')
-    header_submit_btn = WebElement(xpath='(//*[@type="submit"])[1]')
+
     # Links menu
     head_link_btn_group = ManyWebElements(xpath='((//*[@id="desktop-menu"]//ul)[1]//a)')
     # Dropdown menu

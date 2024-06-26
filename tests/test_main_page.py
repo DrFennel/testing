@@ -44,6 +44,10 @@ def test_find_field(web_browser):
     """This test checking search main page"""
 
     page = MainPage(web_browser)
+    text = 'python'
+    result_url = 'https://manjaro.org/search/?query='
+
+    page.scroll_up()
 
     with allure.step('Check visibility'):
         check.is_true(page.search_field.is_visible())
@@ -55,9 +59,25 @@ def test_find_field(web_browser):
         check.equal(page.search_field.get_attribute('placeholder'), 'Search..')
 
     with allure.step('Enter text'):
-        text = 'arch'
         page.search_field.send_keys(text)
-        page.search_field.send_keys(Keys.RETURN)
+        page.search_btn.click()
+        time.sleep(5)
+
+    with allure.step('Check page search result'):
+        check.equal(web_browser.current_url, result_url+text, 'Search service does not work')
+
+    with allure.step('Check search object'):
+        check.equal(page.search_obj_result.get_text(), f'"{text}"', 'Wrong search object')
+
+    with allure.step(f'Checking that there is more than one search result'):
+        check.greater_equal(page.search_result.count(), 1)
+
+        count = 1
+        for result in page.search_result:
+            with allure.step(f'Check search result {count} contain word "{text}"'):
+                check.is_true(result.text.find(text))
+                count += 1
+
 
 
 @allure.story('Test main page')
